@@ -1,0 +1,16 @@
+#application.yml
+spring:
+  application:
+    name: task-management-system
+  sql:
+    init:
+      mode: always  # This ensures schema.sql and data.sql are run on startup
+  profiles:
+    active: dev       # Default profile (Development)
+
+# Optional: Common logging configuration
+logging:
+  level:
+    root: INFO
+
+

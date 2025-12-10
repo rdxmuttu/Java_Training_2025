@@ -1,0 +1,30 @@
+#application-test.yml
+spring:
+  # Specify the profile for testing purposes
+  profiles: test  # Using the 'test' profile for testing purposes
+
+  sql:
+    init:
+      mode: always  # This ensures schema.sql and data.sql are run on startup
+
+  # DataSource configuration for PostgreSQL test database
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tms_db_test  # PostgreSQL database URL (use your test database)
+    username: postgres  # Default PostgreSQL username (adjust if necessary)
+    password: password  # Password for PostgreSQL (adjust if necessary)
+    driverClassName: org.postgresql.Driver  # PostgreSQL driver
+    hikari:
+      maximum-pool-size: 10  # Connection pool size for PostgreSQL (you can adjust this)
+
+  # JPA and Hibernate configuration for schema generation and database initialization
+  jpa:
+    hibernate:
+      ddl-auto: update  # Automatically update schema (create or update tables based on JPA entities)
+    show-sql: true  # Log SQL queries for debugging purposes
+    database-platform: org.hibernate.dialect.PostgreSQLDialect  # Use PostgreSQL dialect for testing
+
+  # Enable logging of SQL queries to debug schema generation
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG  # Show SQL queries being executed
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Show bound parameters

@@ -1,0 +1,63 @@
+plugins {
+    id 'java'                                       // Enables Java support
+    id 'org.springframework.boot' version '3.3.2'   // Spring Boot framework plugin
+    id 'io.spring.dependency-management' version '1.1.5'  // Ensures dependency version consistency
+}
+
+group = 'com.example.tms'            // Base package for the project
+version = '0.0.1-SNAPSHOT'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)   // Use Java 21
+    }
+}
+
+repositories {
+    mavenCentral()        // Main repository Spring/JPA/MapStruct dependencies
+}
+
+dependencies {
+    // ----------------------------
+    // SPRING MODULES
+    // ----------------------------
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // For Controllers + JSON converters (Jackson)
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // JPA + Hibernate ORM support
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // Support for @NotBlank, @Email, etc.
+
+    // ----------------------------
+    // DATABASE
+    // ----------------------------
+    runtimeOnly 'org.postgresql:postgresql'
+    // PostgreSQL JDBC driver
+    implementation 'org.postgresql:postgresql:42.7.3'  // Use the version appropriate for your environment
+    // ----------------------------
+    // UTILITY LIBRARIES
+    // ----------------------------
+    implementation 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok'
+    // Lombok reduces boilerplate (getters/setters/constructors)
+
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    // MapStruct generates mappers for DTO ↔ Entity conversion
+
+    // ----------------------------
+    // DEVTOOLS
+    // ----------------------------
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // Hot reload during development
+
+    // ----------------------------
+    // TESTING
+    // ----------------------------
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()    // Enable JUnit 5
+}

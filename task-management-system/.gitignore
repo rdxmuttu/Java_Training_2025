@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ / Eclipse / VS Code
+.idea/
+.vscode/
+*.iml
+
+# OS artifacts
+*.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Ignore environment files
+*.env

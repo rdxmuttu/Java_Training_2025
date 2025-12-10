@@ -1,0 +1,57 @@
+#application-dev.yml
+server:
+  port: 8080   # Local development server
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tms_db
+    # JDBC connection string → database host, port, name
+
+    username: tms_user
+    # Custom DB user created on Postgres
+
+    password: tms_password
+    # Password for DB user
+
+    driver-class-name: org.postgresql.Driver
+    # PostgreSQL JDBC driver
+
+    hikari:
+      maximum-pool-size: 10
+      # Max number of DB connections allowed
+
+      minimum-idle: 5
+      # Minimum idle connections waiting
+
+      idle-timeout: 30000
+      # Time (30s) after which idle connections can be removed
+
+      connection-timeout: 60000
+      # Max wait time for a free DB connection (60s)
+
+      pool-name: HikariPool-TMS
+      # Custom pool name for debugging
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      # Auto-create tables in development
+      # DO NOT use in production
+
+    show-sql: true
+    # Logs SQL queries in console
+
+    properties:
+      hibernate.format_sql: true
+      # Formats SQL output nicely
+
+logging:
+  level:
+    root: DEBUG
+    org.hibernate.SQL: DEBUG
+    # Show SQL queries
+
+    com.zaxxer.hikari: DEBUG   # HikariCP connection logs
+
+    org.hibernate.type.descriptor.sql: TRACE
+    # Show SQL parameter values
