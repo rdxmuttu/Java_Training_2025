@@ -42,7 +42,7 @@ public class Task {
 
     // ---------------------------- ASSIGNEE ---------------------------- //
 
-    @ManyToOne(fetch = FetchType.LAZY)  // Many tasks can have one assignee
+    @ManyToOne(fetch = FetchType.EAGER)  // Many tasks can have one assignee
     @JoinColumn(name = "assignee_id")  // Foreign key for assignee
     @BatchSize(size = 20) // Hibernate will load 20 tasks' assignee in a single batch instead of 1 per row
     private User assignee;
@@ -67,4 +67,6 @@ public class Task {
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)  // One task can have many comments
     private List<Comment> comments;
+
+    //Getters and setters
 }

@@ -5,6 +5,7 @@ import com.ust.demo.exception.ResourceNotFoundException;
 import com.ust.demo.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,5 +46,16 @@ public class TaskService {
     public void deleteTask(Long id) {
         Task task = getTaskById(id);  // Retrieves the task by ID
         taskRepository.delete(task);  // Deletes the task
+    }
+    @Transactional
+    public void updateTaskStatuses(List<Long> taskIds, String newStatus) {
+        int batchSize = 50;  // Batch size for update
+        for (int i = 0; i < taskIds.size(); i++) {
+            taskRepository.updateStatus(taskIds.get(i), newStatus);  // Perform batch update
+            if (i % batchSize == 0) {  // Commit in batches
+                taskRepository.flush();
+                taskRepository.clear();
+            }
+        }
     }
 }
